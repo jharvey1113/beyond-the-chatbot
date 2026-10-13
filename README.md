@@ -6,7 +6,7 @@ Each build pairs working Google Apps Script starter code with a coaching prompt.
 
 | Build | Who it's for | Code |
 |---|---|---|
-| The Pocket Expert (custom Gem / GPT) | Anyone | No code |
+| The Pocket Expert (portable AI skill for Gemini Skills, ChatGPT Plugins, Copilot, or Claude) | Anyone | No code |
 | One-Click Parent Updates | Teachers, SPED | [`code/parent-updates.gs`](code/parent-updates.gs) |
 | The Sunday Night Briefing | Office staff, dept. leads | [`code/sunday-briefing.gs`](code/sunday-briefing.gs) |
 | The Tiered Alert System | Administrators, counselors | [`code/tiered-alerts.gs`](code/tiered-alerts.gs) |

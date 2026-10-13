@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Beyond the Chatbot: Starter Builds</title>
-<meta name="description" content="Four starter prompts from the book Beyond the Chatbot by James Harvey. Copy one, paste it into your AI, and build a tool that gives you time back.">
+<meta name="description" content="Four starter builds from the book Beyond the Chatbot by James Harvey: a portable AI skill plus three Google Apps Script tools, each with a prompt that walks you through building it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -127,33 +127,59 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.92em;backgro
     <span class="tag save">Saves: answering the same 20 questions over and over</span>
     <span class="tag">Paras</span><span class="tag">SPED</span><span class="tag">Anyone</span>
   </div>
-  <p>A custom AI (a Gemini <strong>Gem</strong> or ChatGPT <strong>Custom GPT</strong>) that knows your world: your standards, your accommodation lists, your policies. One job, done well. Mine checks IEP goals against IDEA. Another gives paras a scaffolding strategy in seconds.</p>
-  <p>The secret from Chapter 5: <strong>structured instructions beat paragraphs.</strong> This prompt interviews you and then writes the instructions in JSON. It's like bowling with the bumpers up.</p>
+  <p>A custom AI <strong>skill</strong> that knows your world: your standards, your accommodation lists, your policies. One job, done well. Mine checks IEP goals against IDEA. Another gives paras a scaffolding strategy in seconds.</p>
+
+  <div class="note"><b>Heads up: the platforms are changing.</b> ChatGPT is retiring Custom GPTs and replacing them with <strong>Plugins</strong>. Google is turning Gemini Gems into <strong>Skills</strong>. The lesson: don't build for one platform. Build a <strong>portable skill</strong>, meaning clear instructions plus your reference files, that you can paste into whichever AI your district uses this year and next.</div>
+
+  <p>The secret from Chapter 5 still applies: <strong>structured instructions beat paragraphs.</strong> It's like bowling with the bumpers up. This prompt interviews you and writes a skill that works on any platform.</p>
 
   <h3>The prompt</h3>
-  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I want to build a custom AI assistant (a Gemini Gem or a ChatGPT Custom GPT) for my job in a K-12 school.
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I want to build a reusable AI skill for my job in a K-12 school. It needs to be PORTABLE so I can use it in Gemini, ChatGPT, Copilot, or Claude, even as those platforms change.
 
 Interview me ONE question at a time to figure out:
 1. Who will use it (me, paras, teachers, office staff, etc.)
 2. The ONE job it should do really well
-3. What documents I should upload as its knowledge base (standards, policies, accommodation lists). No student names or student data.
-4. The rules it must always follow (for example: "never do the student's work for them," "always cite which document the answer came from," "if you don't know, say so")
+3. What reference files I should attach (standards, policies, accommodation lists). No student names or student data.
+4. The rules it must always follow (for example: "never do the student's work for them," "always say which document the answer came from," "if you don't know, say so")
 5. Exactly what format every answer should come back in
 
-When the interview is done:
-- Write the final assistant instructions in JSON so the assistant follows them consistently.
-- Keep it short enough to paste into the Instructions box.
-- Give me 3 test questions I can use to check that it works.</pre></div>
+When the interview is done, give me a finished "Skill Card" with these labeled parts:
+- NAME: short, lowercase, with hyphens (for example: iep-goal-checker)
+- WHEN TO USE: one or two sentences describing when this skill should be used
+- INSTRUCTIONS: step-by-step rules in structured, labeled sections (not long paragraphs)
+- OUTPUT FORMAT: the exact layout every answer should follow
+- REFERENCE FILES: the list of documents I should attach
+- TEST QUESTIONS: 3 questions I can use to check that it works
 
-  <h3>How to use it</h3>
-  <ol>
-    <li>Paste the prompt and answer the questions.</li>
-    <li><strong>Gemini:</strong> Gems &rarr; New Gem. <strong>ChatGPT:</strong> Explore GPTs &rarr; Create.</li>
-    <li>Paste the JSON into the <em>Instructions</em> box and upload your documents.</li>
-    <li>Run the 3 test questions, then fix whatever it gets wrong.</li>
-  </ol>
-  <div class="note"><b>Builder's tip:</b> If you hit the file upload limit, merge your PDFs into a few large files. The limit is on the number of files, not their size.</div>
-  <details><summary>Microsoft district?</summary><p>Use <strong>Copilot Studio</strong> or a Copilot agent. Same steps: paste the JSON as the instructions and add your documents as knowledge.</p></details>
+Then tell me exactly where to paste it in the AI tool I use at work.</pre></div>
+
+  <h3>Where to put your Skill Card</h3>
+  <ul>
+    <li><strong>Gemini:</strong> create a <em>Skill</em>, then call it with <code>/</code> in the chat box.</li>
+    <li><strong>ChatGPT:</strong> create a <em>Plugin</em>. Your instructions become its skill and your documents become its reference files.</li>
+    <li><strong>Copilot:</strong> create an <em>agent</em> in Copilot Studio and add your documents as knowledge.</li>
+    <li><strong>Claude:</strong> add it as a <em>Skill</em>, or as Project instructions with your files.</li>
+  </ul>
+  <p>Then run the 3 test questions and fix whatever it gets wrong. Save your Skill Card in a Google Doc. If the platform changes again, you can paste it somewhere new in five minutes.</p>
+
+  <h3>Already built a GPT or Gem?</h3>
+  <p>Open it, copy its instructions, and paste them here. You'll get a portable Skill Card back.</p>
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>Below are the instructions from a custom AI assistant I built (a ChatGPT Custom GPT or a Gemini Gem). Those are being retired, so I want to turn this into a portable skill I can use on any AI platform.
+
+Rewrite it as a "Skill Card" with these labeled parts:
+- NAME (short, lowercase, hyphens)
+- WHEN TO USE (one or two sentences)
+- INSTRUCTIONS (structured, labeled steps and rules)
+- OUTPUT FORMAT
+- REFERENCE FILES (list what I should re-attach)
+- TEST QUESTIONS (3)
+
+Keep everything my original did. Point out anything vague and suggest how to tighten it.
+
+My original instructions:
+[PASTE THEM HERE]</pre></div>
+  <div class="note"><b>Key dates (as of October 2026):</b> Custom GPTs stop working <strong>December 11, 2026</strong>. Use ChatGPT's "Migrate to plugin" button, but past conversations and sharing settings don't carry over. Gems automatically become Skills around <strong>November 17, 2026</strong>, and education accounts lose Gems entirely on <strong>June 1, 2027</strong>. Check with your district, because timing can vary by account.</div>
+  <div class="note"><b>Builder's tip:</b> If you hit a file upload limit, merge your PDFs into a few large files. The limit is usually on the number of files, not their size.</div>
 </section>
 
 <!-- ============ BUILD 2 ============ -->
