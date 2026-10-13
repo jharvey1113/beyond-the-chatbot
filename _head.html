@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond the Chatbot: Starter Builds</title>
+<meta name="description" content="Four starter prompts from the book Beyond the Chatbot by James Harvey. Copy one, paste it into your AI, and build a tool that gives you time back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --ink:#1c1b19; --muted:#5d5a53; --line:#e3dfd6;
+  --accent:#c2410c; --accent-soft:#fdeee5; --code-bg:#1f2329; --code-ink:#e8e6e1;
+  --ok:#15803d; --tag:#efece6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --surface:#1d1c1a; --ink:#f0eee9; --muted:#a9a59c; --line:#33312d;
+    --accent:#fb8a4c; --accent-soft:#2c1d14; --code-bg:#0e1013; --code-ink:#e8e6e1;
+    --ok:#4ade80; --tag:#2a2926;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1c1a; --ink:#f0eee9; --muted:#a9a59c; --line:#33312d;
+  --accent:#fb8a4c; --accent-soft:#2c1d14; --code-bg:#0e1013; --code-ink:#e8e6e1;
+  --ok:#4ade80; --tag:#2a2926;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+a{color:var(--accent)}
+header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-size:clamp(32px,7vw,48px);line-height:1.05;margin:0 0 12px;font-weight:800;letter-spacing:-.02em}
+.sub{font-size:clamp(17px,3.6vw,20px);color:var(--muted);margin:0 0 20px;max-width:620px}
+.byline{font-size:15px;color:var(--muted)}
+.byline strong{color:var(--ink)}
+.intro{padding:28px 0 8px}
+.intro p{margin:0 0 14px;max-width:680px}
+.pattern{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;padding:0;list-style:none}
+.pattern li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.pattern li span{color:var(--accent);margin-right:6px}
+nav.jump{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:26px 0 8px}
+nav.jump a{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+nav.jump a:hover{border-color:var(--accent)}
+nav.jump b{display:block;font-size:12px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+nav.jump span{font-weight:600;font-size:15px}
+section.tool{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;margin:28px 0;scroll-margin-top:16px}
+.num{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h2{font-size:clamp(24px,5vw,30px);line-height:1.15;margin:4px 0 10px;letter-spacing:-.01em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.tag{background:var(--tag);border-radius:6px;padding:3px 9px;font-size:13px;color:var(--muted)}
+.tag.save{background:var(--accent-soft);color:var(--accent);font-weight:600}
+h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;margin:22px 0 8px;color:var(--muted)}
+ol,ul{padding-left:22px;margin:0 0 10px}
+li{margin:4px 0}
+.cols{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;overflow-x:auto}
+.cols div{white-space:nowrap}
+.cols b{color:var(--accent);font-weight:500;display:inline-block;width:2.2em}
+.prompt{position:relative;margin:8px 0 6px}
+.prompt pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:46px 16px 16px;font:13.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre-wrap;word-wrap:break-word;max-height:420px;overflow:auto}
+.prompt .label{position:absolute;top:12px;left:16px;font:600 12px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af}
+.copy{position:absolute;top:8px;right:8px;font:600 14px Inter,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;min-height:36px}
+.copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.copy.done{background:var(--ok)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;padding:10px 14px;margin:16px 0 4px;font-size:15px}
+.note b{color:var(--accent)}
+details{border-top:1px solid var(--line);margin-top:18px;padding-top:12px}
+summary{cursor:pointer;font-weight:600}
+summary::marker{color:var(--accent)}
+details p,details ol{margin-top:10px}
+.rules{padding:8px 0 0}
+.rules h2{margin-top:24px}
+.rules ol{counter-reset:r;list-style:none;padding:0}
+.rules li{counter-increment:r;position:relative;padding:12px 0 12px 46px;border-bottom:1px solid var(--line)}
+.rules li::before{content:counter(r);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+footer{margin:40px 0 0;padding:28px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+footer strong{color:var(--ink)}
+.book{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.btn{display:inline-block;margin-top:10px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:10px 16px;border-radius:10px}
+code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.92em;background:var(--tag);padding:1px 5px;border-radius:4px}
+@media print{
+  .copy,nav.jump{display:none}
+  .prompt pre{max-height:none;background:#f3f3f3;color:#111}
+  section.tool{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">DLAC 2026 &middot; Book Study &middot; Atlanta</p>
+  <h1>Beyond the Chatbot</h1>
+  <p class="sub">Stop talking about AI. Start building something. Here are four starter builds you can make this week.</p>
+  <p class="byline"><strong>James Harvey</strong> &middot; Special Education Teacher, AI Ambassador &amp; Distance Learning &middot; Agua Fria Union High School District</p>
+</header>
+
+<div class="intro">
+  <p>Most of us are stuck in the drive-thru. We type a prompt and hope something usable comes out the window. This page is about rebuilding the kitchen.</p>
+  <p><strong>These are prompts, not code.</strong> Copy one, paste it into ChatGPT, Gemini, Copilot, or Claude, and the AI writes the script for <em>your</em> sheet. When Google changes something next year, you paste the prompt again and get fresh code. You don't need a computer science degree or a new subscription.</p>
+  <p>Every tool here follows the same pattern. The only difference between a tool for 30 students and a tool for 3,000 is more rows.</p>
+  <ul class="pattern" aria-label="The build pattern">
+    <li><span>1</span>Get data</li>
+    <li><span>2</span>Loop through it</li>
+    <li><span>3</span>Check a condition</li>
+    <li><span>4</span>Do something</li>
+  </ul>
+
+  <nav class="jump" aria-label="Jump to a tool">
+    <a href="#pocket-expert"><b>Build 1 &middot; No code</b><span>The Pocket Expert</span></a>
+    <a href="#parent-updates"><b>Build 2 &middot; Teachers</b><span>One-Click Parent Updates</span></a>
+    <a href="#sunday-briefing"><b>Build 3 &middot; Office &amp; Leads</b><span>Sunday Night Briefing</span></a>
+    <a href="#tiered-alerts"><b>Build 4 &middot; Admin</b><span>Tiered Alert System</span></a>
+  </nav>
+</div>
+
+<!-- ============ BUILD 1 ============ -->
+<section class="tool" id="pocket-expert">
+  <div class="num">Build 1 &middot; Start here &middot; No code</div>
+  <h2>The Pocket Expert</h2>
+  <div class="tags">
+    <span class="tag save">Saves: answering the same 20 questions over and over</span>
+    <span class="tag">Paras</span><span class="tag">SPED</span><span class="tag">Anyone</span>
+  </div>
+  <p>A custom AI (a Gemini <strong>Gem</strong> or ChatGPT <strong>Custom GPT</strong>) that knows your world: your standards, your accommodation lists, your policies. One job, done well. Mine checks IEP goals against IDEA. Another gives paras a scaffolding strategy in seconds.</p>
+  <p>The secret from Chapter 5: <strong>structured instructions beat paragraphs.</strong> This prompt interviews you and then writes the instructions in JSON. It's like bowling with the bumpers up.</p>
+
+  <h3>The prompt</h3>
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I want to build a custom AI assistant (a Gemini Gem or a ChatGPT Custom GPT) for my job in a K-12 school.
+
+Interview me ONE question at a time to figure out:
+1. Who will use it (me, paras, teachers, office staff, etc.)
+2. The ONE job it should do really well
+3. What documents I should upload as its knowledge base (standards, policies, accommodation lists). No student names or student data.
+4. The rules it must always follow (for example: "never do the student's work for them," "always cite which document the answer came from," "if you don't know, say so")
+5. Exactly what format every answer should come back in
+
+When the interview is done:
+- Write the final assistant instructions in JSON so the assistant follows them consistently.
+- Keep it short enough to paste into the Instructions box.
+- Give me 3 test questions I can use to check that it works.</pre></div>
+
+  <h3>How to use it</h3>
+  <ol>
+    <li>Paste the prompt and answer the questions.</li>
+    <li><strong>Gemini:</strong> Gems &rarr; New Gem. <strong>ChatGPT:</strong> Explore GPTs &rarr; Create.</li>
+    <li>Paste the JSON into the <em>Instructions</em> box and upload your documents.</li>
+    <li>Run the 3 test questions, then fix whatever it gets wrong.</li>
+  </ol>
+  <div class="note"><b>Builder's tip:</b> If you hit the file upload limit, merge your PDFs into a few large files. The limit is on the number of files, not their size.</div>
+  <details><summary>Microsoft district?</summary><p>Use <strong>Copilot Studio</strong> or a Copilot agent. Same steps: paste the JSON as the instructions and add your documents as knowledge.</p></details>
+</section>
+

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond the Chatbot: Starter Builds</title>
+<meta name="description" content="Four starter prompts from the book Beyond the Chatbot by James Harvey. Copy one, paste it into your AI, and build a tool that gives you time back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --ink:#1c1b19; --muted:#5d5a53; --line:#e3dfd6;
+  --accent:#c2410c; --accent-soft:#fdeee5; --code-bg:#1f2329; --code-ink:#e8e6e1;
+  --ok:#15803d; --tag:#efece6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --surface:#1d1c1a; --ink:#f0eee9; --muted:#a9a59c; --line:#33312d;
+    --accent:#fb8a4c; --accent-soft:#2c1d14; --code-bg:#0e1013; --code-ink:#e8e6e1;
+    --ok:#4ade80; --tag:#2a2926;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1c1a; --ink:#f0eee9; --muted:#a9a59c; --line:#33312d;
+  --accent:#fb8a4c; --accent-soft:#2c1d14; --code-bg:#0e1013; --code-ink:#e8e6e1;
+  --ok:#4ade80; --tag:#2a2926;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+a{color:var(--accent)}
+header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-size:clamp(32px,7vw,48px);line-height:1.05;margin:0 0 12px;font-weight:800;letter-spacing:-.02em}
+.sub{font-size:clamp(17px,3.6vw,20px);color:var(--muted);margin:0 0 20px;max-width:620px}
+.byline{font-size:15px;color:var(--muted)}
+.byline strong{color:var(--ink)}
+.intro{padding:28px 0 8px}
+.intro p{margin:0 0 14px;max-width:680px}
+.pattern{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;padding:0;list-style:none}
+.pattern li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.pattern li span{color:var(--accent);margin-right:6px}
+nav.jump{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:26px 0 8px}
+nav.jump a{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+nav.jump a:hover{border-color:var(--accent)}
+nav.jump b{display:block;font-size:12px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+nav.jump span{font-weight:600;font-size:15px}
+section.tool{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;margin:28px 0;scroll-margin-top:16px}
+.num{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h2{font-size:clamp(24px,5vw,30px);line-height:1.15;margin:4px 0 10px;letter-spacing:-.01em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.tag{background:var(--tag);border-radius:6px;padding:3px 9px;font-size:13px;color:var(--muted)}
+.tag.save{background:var(--accent-soft);color:var(--accent);font-weight:600}
+h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;margin:22px 0 8px;color:var(--muted)}
+ol,ul{padding-left:22px;margin:0 0 10px}
+li{margin:4px 0}
+.cols{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;overflow-x:auto}
+.cols div{white-space:nowrap}
+.cols b{color:var(--accent);font-weight:500;display:inline-block;width:2.2em}
+.prompt{position:relative;margin:8px 0 6px}
+.prompt pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:46px 16px 16px;font:13.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre-wrap;word-wrap:break-word;max-height:420px;overflow:auto}
+.prompt .label{position:absolute;top:12px;left:16px;font:600 12px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af}
+.copy{position:absolute;top:8px;right:8px;font:600 14px Inter,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;min-height:36px}
+.copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.copy.done{background:var(--ok)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;padding:10px 14px;margin:16px 0 4px;font-size:15px}
+.note b{color:var(--accent)}
+details{border-top:1px solid var(--line);margin-top:18px;padding-top:12px}
+summary{cursor:pointer;font-weight:600}
+summary::marker{color:var(--accent)}
+details p,details ol{margin-top:10px}
+.rules{padding:8px 0 0}
+.rules h2{margin-top:24px}
+.rules ol{counter-reset:r;list-style:none;padding:0}
+.rules li{counter-increment:r;position:relative;padding:12px 0 12px 46px;border-bottom:1px solid var(--line)}
+.rules li::before{content:counter(r);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+footer{margin:40px 0 0;padding:28px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+footer strong{color:var(--ink)}
+.book{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.btn{display:inline-block;margin-top:10px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:10px 16px;border-radius:10px}
+code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.92em;background:var(--tag);padding:1px 5px;border-radius:4px}
+@media print{
+  .copy,nav.jump{display:none}
+  .prompt pre{max-height:none;background:#f3f3f3;color:#111}
+  section.tool{break-inside:avoid-page}
+}
+.codeslot{color:#9ca3af;font-style:italic}
+@media (max-width:480px){.prompt .label{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">DLAC 2026 &middot; Book Study &middot; Atlanta</p>
+  <h1>Beyond the Chatbot</h1>
+  <p class="sub">Stop talking about AI. Start building something. Here are four starter builds you can make this week.</p>
+  <p class="byline"><strong>James Harvey</strong> &middot; Special Education Teacher, AI Ambassador &amp; Distance Learning &middot; Agua Fria Union High School District</p>
+</header>
+
+<div class="intro">
+  <p>Most of us are stuck in the drive-thru. We type a prompt and hope something usable comes out the window. This page is about rebuilding the kitchen.</p>
+  <p><strong>Each build gives you working starter code and a coaching prompt.</strong> Tap <em>Copy prompt + code</em>, paste it into ChatGPT, Gemini, Copilot, or Claude, and your AI walks you through building it one step at a time: set up the sheet, paste the code, test it safely, and make it yours. You don't need a computer science degree or a new subscription.</p>
+  <p>Every tool here follows the same pattern. The only difference between a tool for 30 students and a tool for 3,000 is more rows.</p>
+  <ul class="pattern" aria-label="The build pattern">
+    <li><span>1</span>Get data</li>
+    <li><span>2</span>Loop through it</li>
+    <li><span>3</span>Check a condition</li>
+    <li><span>4</span>Do something</li>
+  </ul>
+
+  <nav class="jump" aria-label="Jump to a tool">
+    <a href="#pocket-expert"><b>Build 1 &middot; No code</b><span>The Pocket Expert</span></a>
+    <a href="#parent-updates"><b>Build 2 &middot; Teachers</b><span>One-Click Parent Updates</span></a>
+    <a href="#sunday-briefing"><b>Build 3 &middot; Office &amp; Leads</b><span>Sunday Night Briefing</span></a>
+    <a href="#tiered-alerts"><b>Build 4 &middot; Admin</b><span>Tiered Alert System</span></a>
+  </nav>
+</div>
+
+<!-- ============ BUILD 1 ============ -->
+<section class="tool" id="pocket-expert">
+  <div class="num">Build 1 &middot; Start here &middot; No code</div>
+  <h2>The Pocket Expert</h2>
+  <div class="tags">
+    <span class="tag save">Saves: answering the same 20 questions over and over</span>
+    <span class="tag">Paras</span><span class="tag">SPED</span><span class="tag">Anyone</span>
+  </div>
+  <p>A custom AI (a Gemini <strong>Gem</strong> or ChatGPT <strong>Custom GPT</strong>) that knows your world: your standards, your accommodation lists, your policies. One job, done well. Mine checks IEP goals against IDEA. Another gives paras a scaffolding strategy in seconds.</p>
+  <p>The secret from Chapter 5: <strong>structured instructions beat paragraphs.</strong> This prompt interviews you and then writes the instructions in JSON. It's like bowling with the bumpers up.</p>
+
+  <h3>The prompt</h3>
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I want to build a custom AI assistant (a Gemini Gem or a ChatGPT Custom GPT) for my job in a K-12 school.
+
+Interview me ONE question at a time to figure out:
+1. Who will use it (me, paras, teachers, office staff, etc.)
+2. The ONE job it should do really well
+3. What documents I should upload as its knowledge base (standards, policies, accommodation lists). No student names or student data.
+4. The rules it must always follow (for example: "never do the student's work for them," "always cite which document the answer came from," "if you don't know, say so")
+5. Exactly what format every answer should come back in
+
+When the interview is done:
+- Write the final assistant instructions in JSON so the assistant follows them consistently.
+- Keep it short enough to paste into the Instructions box.
+- Give me 3 test questions I can use to check that it works.</pre></div>
+
+  <h3>How to use it</h3>
+  <ol>
+    <li>Paste the prompt and answer the questions.</li>
+    <li><strong>Gemini:</strong> Gems &rarr; New Gem. <strong>ChatGPT:</strong> Explore GPTs &rarr; Create.</li>
+    <li>Paste the JSON into the <em>Instructions</em> box and upload your documents.</li>
+    <li>Run the 3 test questions, then fix whatever it gets wrong.</li>
+  </ol>
+  <div class="note"><b>Builder's tip:</b> If you hit the file upload limit, merge your PDFs into a few large files. The limit is on the number of files, not their size.</div>
+  <details><summary>Microsoft district?</summary><p>Use <strong>Copilot Studio</strong> or a Copilot agent. Same steps: paste the JSON as the instructions and add your documents as knowledge.</p></details>
+</section>
+
+<!-- ============ BUILD 2 ============ -->
+<section class="tool" id="parent-updates">
+  <div class="num">Build 2 &middot; Your first automation</div>
+  <h2>One-Click Parent Updates</h2>
+  <div class="tags">
+    <span class="tag save">Saves: about 2 hours every time you send updates</span>
+    <span class="tag">Teachers</span><span class="tag">SPED</span><span class="tag">Google Sheets + Apps Script</span>
+  </div>
+  <p>You type a quick note next to each student and click one button. Every parent gets a personal email, and the sheet records when you made contact. This is the build from Chapter 7, and the pattern behind every tool after it.</p>
+
+  <h3>You'll need</h3>
+  <p>A Google Sheet with a tab named <code>Student Roster</code>. Your AI will help you set it up.</p>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Parent Name</div><div><b>C</b>Parent Email</div><div><b>D</b>Notes</div><div><b>E</b>Last Contact Date</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="parent-updates"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I'm a teacher and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It sends personalized progress emails to parents from a Google Sheet with one click.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does.
+2. Help me set up my Google Sheet (tab name and column headers) so it matches the script.
+3. Have me add 3 FAKE students and use MY OWN email address for every parent.
+4. Show me how to open Extensions &gt; Apps Script, paste the code, and save it.
+5. Walk me through running it the first time, including the "This app isn't verified" screen.
+6. Help me check that the test emails arrived.
+7. Ask what I want to change (the email wording, the columns, my name) and update the code for me.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="parent-updates"></pre></div></details>
+  <details><summary>Microsoft district?</summary><p>Paste the prompt and code anyway, and add: <em>"Rebuild this as a Power Automate flow using an Excel Online table."</em> The flow is "For each row" &rarr; Condition (Notes is not empty) &rarr; "Send an email (V2)" &rarr; "Update a row" with today's date.</p></details>
+</section>
+
+<!-- ============ BUILD 3 ============ -->
+<section class="tool" id="sunday-briefing">
+  <div class="num">Build 3 &middot; Set it and forget it</div>
+  <h2>The Sunday Night Briefing</h2>
+  <div class="tags">
+    <span class="tag save">Saves: "Wait, we have a meeting? Nobody told me."</span>
+    <span class="tag">Office staff</span><span class="tag">Dept. leads</span><span class="tag">SPED coordinators</span>
+  </div>
+  <p>Every Sunday at 6 PM, your team gets one clean email with the week ahead, grouped by day: IEP meetings, 504s, drills, early release. It's all already on the calendar. This just makes sure people see it. From Chapter 14.</p>
+
+  <h3>You'll need</h3>
+  <ul>
+    <li>One shared Google Calendar for all events (for example, <code>Office Master</code>).</li>
+    <li>A Google Sheet with a tab named <code>Recipients</code> and email addresses in column A. Start with only your own.</li>
+  </ul>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="sunday-briefing"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I work in a school and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." Every Sunday night it emails my team a digest of next week's events from a shared Google Calendar.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does.
+2. Help me find or set up the shared calendar and change CALENDAR_NAME to match it exactly.
+3. Help me create the Google Sheet with a "Recipients" tab, using only MY email for now.
+4. Show me how to open Extensions &gt; Apps Script, paste the code, and save it.
+5. Have me run sendTestToMe first, and help me through the permission screens.
+6. Once the test email looks right, have me run createSundayTrigger ONE time.
+7. Ask what I want to change (send day and time, recipients, layout) and update the code for me.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="sunday-briefing"></pre></div></details>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow is a "Recurrence" trigger (Sunday 6 PM) &rarr; "Get calendar view of events (V3)" for the next 7 days &rarr; "Create HTML table" &rarr; "Send an email (V2)" to your team or a Teams channel.</p></details>
+</section>
+
+<!-- ============ BUILD 4 ============ -->
+<section class="tool" id="tiered-alerts">
+  <div class="num">Build 4 &middot; Let the data trigger the intervention</div>
+  <h2>The Tiered Alert System</h2>
+  <div class="tags">
+    <span class="tag save">Saves: catching students at 5%, not after 30 days</span>
+    <span class="tag">Administrators</span><span class="tag">Counselors</span><span class="tag">Attendance teams</span>
+  </div>
+  <p>You can't check 800 students by hand every week. This sheet does it for you. Students are flagged by tier, the right people are emailed, and every contact is logged, so you have a paper trail showing you stepped in early. It ships in <strong>test mode</strong>, so nothing reaches a family until you switch it on. From Chapter 15.</p>
+
+  <h3>You'll need</h3>
+  <p>A Google Sheet with a tab named <code>Attendance</code>. Paste in your weekly export (fake data first).</p>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Parent Email</div><div><b>C</b>Counselor Email</div><div><b>D</b>Absence Rate (%)</div><div><b>E</b>Last Alert Tier</div><div><b>F</b>Last Alert Date</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="tiered-alerts"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I'm a school administrator and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It checks student absence rates, sends tiered emails to parents and counselors, and logs every contact.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does, including the three tiers and TEST_MODE.
+2. Help me set up the "Attendance" tab with the right headers, and help me make 6 FAKE students with absence rates that hit each tier. Use MY email for every parent and counselor.
+3. Show me how to open Extensions &gt; Apps Script, paste the code, change MY_NAME, and save.
+4. Have me run runTieredAlerts with TEST_MODE = true, and help me through the permission screens.
+5. Help me check the test emails, the summary email, and the "Intervention Log" tab.
+6. Help me rewrite the three messages in MESSAGES so they sound like our school.
+7. Explain what I should confirm with my administrator and our data privacy policy before turning TEST_MODE off and running createWeeklyTrigger.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="tiered-alerts"></pre></div></details>
+  <div class="note"><b>Remember:</b> The script finds the student. A human still makes the call. This tool frees up your time so you can make it.</div>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow connects to your attendance export in Excel Online &rarr; "Apply to each" &rarr; Condition blocks for each tier &rarr; send emails &rarr; "Add a row" to a log table. Bonus: post the Tier 3 list to your admin team's private Teams channel.</p></details>
+</section>
+
+<!-- ============ BONUS ============ -->
+<section class="tool" id="when-it-breaks">
+  <div class="num">Bonus &middot; Chapter 7.5</div>
+  <h2>When It Breaks</h2>
+  <p>It will break, probably more than once. That's not failure. That's part of building. Paste this in when you see a red error:</p>
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I'm not a programmer. I ran my Google Apps Script and got this error:
+
+[PASTE THE ERROR MESSAGE HERE]
+
+Here is my full script:
+
+[PASTE YOUR SCRIPT HERE]
+
+And here are my sheet's tab names and column headers:
+
+[LIST THEM HERE]
+
+Explain what went wrong in plain English, then give me the complete corrected script.</pre></div>
+</section>
+
+<!-- ============ RULES ============ -->
+<div class="rules">
+  <h2>The Guardrails (Chapter 8)</h2>
+  <p>If it's not secure, don't build it.</p>
+  <ol>
+    <li><strong>Fake data first.</strong> Test every build with made-up students and your own email.</li>
+    <li><strong>Describe the data. Never paste it.</strong> Tell the AI "Column A has student names." Don't paste the names into the chat.</li>
+    <li><strong>Keep it in your house.</strong> Scripts run inside your district Google or Microsoft account, so the data stays where it already lives.</li>
+    <li><strong>Always build a fail-safe.</strong> "If it's not found, leave it for me." A tool that quietly skips a parent is worse than no tool.</li>
+    <li><strong>Read-only first.</strong> Never let a first run delete or move anything. Report first, act second.</li>
+    <li><strong>Know your policy.</strong> Check your district's data privacy and FERPA rules before going live with real students.</li>
+  </ol>
+</div>
+
+<footer>
+  <div class="book">
+    <div>
+      <strong>Beyond the Chatbot: Stop Talking About AI. Start Building Something.</strong><br>
+      by James Harvey &middot; ISBN 979-8250116329<br>
+      The full build guides, plus chapters for paras, teachers, SPED, counselors, office staff, and administrators.<br>
+      <a class="btn" href="https://www.amazon.com/s?k=9798250116329">Find the book</a>
+    </div>
+  </div>
+  <p style="margin-top:28px">Automate the robot work. Get back to the human work: reaching the student who checked out, and filling that empty seat.</p>
+  <p>Also at DLAC: <strong>The Reality Gap: What Students Really Think About AI</strong> &middot; Tuesday, Oct 20, 3:00 PM</p>
+</footer>
+
+</div>
+<script type="text/plain" id="code-parent-updates">
+/**
+ * ONE-CLICK PARENT UPDATES
+ * From "Beyond the Chatbot" by James Harvey (Chapter 7)
+ *
+ * Sheet tab named "Student Roster", headers in row 1:
+ *   A: Student Name | B: Parent Name | C: Parent Email | D: Notes | E: Last Contact Date
+ *
+ * Type a note in column D for each student you want to update,
+ * then use the menu: Parent Tools > Send Updates.
+ */
+
+const SHEET_NAME = 'Student Roster';
+const MY_NAME = 'Your Name';   // <-- Change this to your name
+
+// Adds a "Parent Tools" menu to the sheet every time it opens
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Parent Tools')
+    .addItem('Send Updates', 'sendParentUpdates')
+    .addToUi();
+}
+
+function sendParentUpdates() {
+  const ui = SpreadsheetApp.getUi();
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    ui.alert('Could not find a tab named "' + SHEET_NAME + '".');
+    return;
+  }
+
+  // 1. GET DATA: grab every row below the headers
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) {
+    ui.alert('No students found.');
+    return;
+  }
+  const data = sheet.getRange(2, 1, lastRow - 1, 5).getValues();
+
+  // 2. LOOP + 3. CHECK: only rows that have BOTH a note and a parent email
+  const ready = [];
+  data.forEach(function (row, i) {
+    const email = String(row[2]).trim();
+    const notes = String(row[3]).trim();
+    if (email && notes) ready.push(i);
+  });
+  if (ready.length === 0) {
+    ui.alert('No rows have both a Note and a Parent Email.');
+    return;
+  }
+
+  // Safety check: ask before anything goes out
+  const answer = ui.alert('Send ' + ready.length + ' parent update(s)?', ui.ButtonSet.YES_NO);
+  if (answer !== ui.Button.YES) return;
+
+  // 4. DO SOMETHING: send each email and stamp the date
+  ready.forEach(function (i) {
+    const student = data[i][0];
+    const parent = data[i][1];
+    const email = String(data[i][2]).trim();
+    const notes = data[i][3];
+
+    const subject = 'Update on ' + student;
+    const body =
+      'Dear ' + parent + ',\n\n' +
+      'I wanted to give you a quick update on ' + student + "'s progress.\n\n" +
+      notes + '\n\n' +
+      'Please let me know if you have any questions.\n\n' +
+      'Best,\n' + MY_NAME;
+
+    MailApp.sendEmail(email, subject, body);
+    sheet.getRange(i + 2, 5).setValue(new Date());   // Column E: Last Contact Date
+  });
+
+  ui.alert('Done! Sent ' + ready.length + ' update(s).');
+}
+</script>
+<script type="text/plain" id="code-sunday-briefing">
+/**
+ * THE SUNDAY NIGHT BRIEFING
+ * From "Beyond the Chatbot" by James Harvey (Chapter 14)
+ *
+ * Every Sunday at 6 PM, emails your team next week's events (Mon-Fri),
+ * grouped by day, from one shared Google Calendar.
+ *
+ * Setup:
+ *   - A shared Google Calendar (name it below)
+ *   - A sheet tab named "Recipients" with email addresses in column A
+ *
+ * Run sendTestToMe first. When it looks right, run createSundayTrigger ONCE.
+ */
+
+const CALENDAR_NAME = 'Office Master';   // <-- Your shared calendar's exact name
+const RECIPIENTS_TAB = 'Recipients';
+
+// Sends the digest to everyone on the Recipients tab (the trigger runs this)
+function sendWeeklyDigest() {
+  sendDigest_(getRecipients_());
+}
+
+// Sends the digest ONLY to you, so you can check it first
+function sendTestToMe() {
+  sendDigest_([Session.getEffectiveUser().getEmail()]);
+}
+
+// Run this ONE time to schedule the digest for every Sunday at 6 PM
+function createSundayTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'sendWeeklyDigest') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('sendWeeklyDigest')
+    .timeBased()
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .atHour(18)
+    .create();
+}
+
+function sendDigest_(recipients) {
+  if (recipients.length === 0) {
+    throw new Error('No email addresses found in column A of "' + RECIPIENTS_TAB + '".');
+  }
+  const calendars = CalendarApp.getCalendarsByName(CALENDAR_NAME);
+  if (calendars.length === 0) {
+    throw new Error('Could not find a calendar named "' + CALENDAR_NAME + '".');
+  }
+  const cal = calendars[0];
+  const tz = cal.getTimeZone();
+
+  // Find the upcoming Monday
+  const monday = new Date();
+  monday.setHours(0, 0, 0, 0);
+  const daysUntilMonday = (8 - monday.getDay()) % 7 || 7;
+  monday.setDate(monday.getDate() + daysUntilMonday);
+
+  // Build the email one day at a time
+  let html = '<div style="font-family:Arial,sans-serif;max-width:600px;font-size:15px">' +
+    '<h2 style="margin:0 0 8px">Week of ' + Utilities.formatDate(monday, tz, 'MMMM d') + '</h2>';
+
+  for (let d = 0; d < 5; d++) {
+    const start = new Date(monday);
+    start.setDate(monday.getDate() + d);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 1);
+    const events = cal.getEvents(start, end);
+
+    html += '<h3 style="margin:18px 0 6px;padding-bottom:4px;border-bottom:1px solid #ddd">' +
+      Utilities.formatDate(start, tz, 'EEEE, MMM d') + '</h3>';
+
+    if (events.length === 0) {
+      html += '<p style="color:#777;margin:4px 0">Nothing scheduled.</p>';
+      continue;
+    }
+    html += '<ul style="padding-left:18px;margin:4px 0">';
+    events.forEach(function (e) {
+      const time = e.isAllDayEvent() ? 'All day' : Utilities.formatDate(e.getStartTime(), tz, 'h:mm a');
+      const where = e.getLocation() ? ' <span style="color:#777">(' + clean_(e.getLocation()) + ')</span>' : '';
+      html += '<li style="margin:4px 0"><b>' + time + '</b> &nbsp;' + clean_(e.getTitle()) + where + '</li>';
+    });
+    html += '</ul>';
+  }
+  html += '</div>';
+
+  MailApp.sendEmail({
+    to: recipients.join(','),
+    subject: 'Weekly Calendar Digest: ' + Utilities.formatDate(monday, tz, 'MMM d'),
+    htmlBody: html
+  });
+}
+
+// Reads email addresses from column A of the Recipients tab
+function getRecipients_() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(RECIPIENTS_TAB);
+  if (!sheet || sheet.getLastRow() < 1) return [];
+  return sheet.getRange(1, 1, sheet.getLastRow(), 1).getValues()
+    .map(function (r) { return String(r[0]).trim(); })
+    .filter(function (e) { return e.indexOf('@') > 0; });
+}
+
+// Keeps event titles from breaking the email layout
+function clean_(text) {
+  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+</script>
+<script type="text/plain" id="code-tiered-alerts">
+/**
+ * THE TIERED ALERT SYSTEM
+ * From "Beyond the Chatbot" by James Harvey (Chapter 15)
+ *
+ * Sheet tab named "Attendance", headers in row 1:
+ *   A: Student Name | B: Parent Email | C: Counselor Email | D: Absence Rate (%)
+ *   E: Last Alert Tier | F: Last Alert Date   (leave E and F blank; the script fills them)
+ *
+ *   Tier 1 (5% - 7.9%)  -> Parent
+ *   Tier 2 (8% - 9.9%)  -> Parent + Counselor
+ *   Tier 3 (10%+)       -> Parent + Counselor + You
+ *
+ * Every email is recorded on an "Intervention Log" tab.
+ * KEEP TEST_MODE = true until you have read every test email.
+ */
+
+const TEST_MODE = true;          // true = ALL emails go only to you, marked [TEST]
+const MY_NAME = 'Your Name';     // <-- Change this
+const SHEET_NAME = 'Attendance';
+const LOG_NAME = 'Intervention Log';
+const RESEND_DAYS = 7;           // Don't repeat the same tier to the same family within this many days
+
+// Edit the wording here. {student}, {rate}, and {me} fill in automatically.
+const MESSAGES = {
+  1: {
+    subject: 'Checking in on {student}',
+    body: 'Hello,\n\nWe noticed {student} has missed a few days recently, and we wanted to check in. ' +
+          'Is everything okay? If something is getting in the way, we would love to help.\n\n' +
+          'Just reply to this email anytime.\n\nThank you,\n{me}'
+  },
+  2: {
+    subject: "We're concerned about {student}'s attendance",
+    body: 'Hello,\n\n{student} has now been absent {rate}% of the time. We are concerned and want to ' +
+          "work with you on a plan. {student}'s counselor is copied on this email and will reach out soon.\n\n" +
+          'Thank you,\n{me}'
+  },
+  3: {
+    subject: 'Attendance alert for {student}',
+    body: "Hello,\n\n{student}'s absences have reached {rate}%, which is considered chronic absence. " +
+          'We would like to set up a time this week to talk about how we can support {student}. ' +
+          'Please reply with a time that works for you.\n\nThank you,\n{me}'
+  }
+};
+
+// Adds an "Attendance Tools" menu to the sheet
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Attendance Tools')
+    .addItem('Run Tiered Alerts', 'runTieredAlerts')
+    .addToUi();
+}
+
+// Run this ONE time (after testing) to check attendance every Monday at 7 AM
+function createWeeklyTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'runTieredAlerts') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('runTieredAlerts')
+    .timeBased()
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .atHour(7)
+    .create();
+}
+
+function runTieredAlerts() {
+  const me = Session.getEffectiveUser().getEmail();
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) throw new Error('Could not find a tab named "' + SHEET_NAME + '".');
+  const log = ss.getSheetByName(LOG_NAME) || createLog_(ss);
+
+  // 1. GET DATA
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+  const data = sheet.getRange(2, 1, lastRow - 1, 6).getValues();
+  const formats = sheet.getRange(2, 4, lastRow - 1, 1).getNumberFormats();
+
+  const now = new Date();
+  const counts = { 1: 0, 2: 0, 3: 0 };
+  const skipped = [];
+
+  // 2. LOOP through every student
+  data.forEach(function (row, i) {
+    const student = String(row[0]).trim();
+    if (!student) return;
+
+    // Read the absence rate (works whether it's typed as 7, 7%, or a % formatted cell)
+    let rate = parseFloat(String(row[3]).replace('%', ''));
+    if (isNaN(rate)) { skipped.push(student + ' (no absence rate)'); return; }
+    if (formats[i][0].indexOf('%') !== -1) rate = rate * 100;
+
+    // 3. CHECK the condition
+    const tier = getTier_(rate);
+    if (tier === 0) return;
+
+    const lastTier = Number(row[4]);
+    const lastDate = row[5] instanceof Date ? row[5] : null;
+    const daysSince = lastDate ? (now - lastDate) / 86400000 : Infinity;
+    if (lastTier === tier && daysSince < RESEND_DAYS) return;   // Already contacted recently
+
+    const to = [String(row[1]).trim()];                 // Parent
+    if (tier >= 2) to.push(String(row[2]).trim());      // + Counselor
+    if (tier === 3) to.push(me);                        // + You
+
+    // Fail-safe: if any address is missing, leave this student for a human
+    if (to.some(function (e) { return !isEmail_(e); })) {
+      skipped.push(student + ' (missing or invalid email)');
+      return;
+    }
+
+    // 4. DO SOMETHING: send, stamp, and log
+    const fill = function (text) {
+      return text.replace(/{student}/g, student).replace(/{rate}/g, rate.toFixed(1)).replace(/{me}/g, MY_NAME);
+    };
+    let body = fill(MESSAGES[tier].body);
+    if (TEST_MODE) body = '*** TEST MODE: this would have gone to ' + to.join(', ') + ' ***\n\n' + body;
+
+    MailApp.sendEmail({
+      to: TEST_MODE ? me : to.join(','),
+      subject: (TEST_MODE ? '[TEST] ' : '') + fill(MESSAGES[tier].subject),
+      body: body
+    });
+
+    if (!TEST_MODE) sheet.getRange(i + 2, 5, 1, 2).setValues([[tier, now]]);
+    log.appendRow([now, student, 'Tier ' + tier, rate.toFixed(1) + '%', to.join(', '), TEST_MODE ? 'TEST' : 'SENT']);
+    counts[tier]++;
+  });
+
+  // Summary email to you
+  MailApp.sendEmail(me,
+    'Tiered Alert Summary' + (TEST_MODE ? ' [TEST]' : ''),
+    'Tier 1: ' + counts[1] + '\nTier 2: ' + counts[2] + '\nTier 3: ' + counts[3] +
+    '\n\nSkipped (handle these by hand):\n' + (skipped.length ? skipped.join('\n') : 'None'));
+}
+
+function getTier_(rate) {
+  if (rate >= 10) return 3;
+  if (rate >= 8) return 2;
+  if (rate >= 5) return 1;
+  return 0;
+}
+
+function createLog_(ss) {
+  const log = ss.insertSheet(LOG_NAME);
+  log.appendRow(['Date', 'Student', 'Tier', 'Absence Rate', 'Sent To', 'Status']);
+  log.setFrozenRows(1);
+  return log;
+}
+
+function isEmail_(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+</script>
+<script>
+function codeFor(name){ var el=document.getElementById('code-'+name); return el ? el.textContent.replace(/^\n/,'') : ''; }
+document.querySelectorAll('pre.codeview').forEach(function(pre){ pre.textContent = codeFor(pre.dataset.code); });
+function textFor(box){
+  var pre = box.querySelector('pre');
+  if (box.dataset.code && pre.querySelector('.codeslot')) {
+    var copy = pre.cloneNode(true);
+    copy.querySelector('.codeslot').textContent = codeFor(box.dataset.code);
+    return copy.textContent;
+  }
+  return pre.textContent;
+}
+document.querySelectorAll('.copy').forEach(function(btn){
+  var label = btn.textContent;
+  btn.addEventListener('click', function(){
+    var text = textFor(btn.parentElement);
+    function done(){ btn.textContent='Copied!'; btn.classList.add('done'); setTimeout(function(){btn.textContent=label;btn.classList.remove('done');},2000); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ btn.textContent='Select & copy'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done).catch(fallback); } else { fallback(); }
+  });
+});
+</script>
+</body>
+</html>

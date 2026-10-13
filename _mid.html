@@ -1,0 +1,109 @@
+<!-- ============ BUILD 2 ============ -->
+<section class="tool" id="parent-updates">
+  <div class="num">Build 2 &middot; Your first automation</div>
+  <h2>One-Click Parent Updates</h2>
+  <div class="tags">
+    <span class="tag save">Saves: about 2 hours every time you send updates</span>
+    <span class="tag">Teachers</span><span class="tag">SPED</span><span class="tag">Google Sheets + Apps Script</span>
+  </div>
+  <p>You type a quick note next to each student and click one button. Every parent gets a personal email, and the sheet records when you made contact. This is the build from Chapter 7, and the pattern behind every tool after it.</p>
+
+  <h3>You'll need</h3>
+  <p>A Google Sheet with a tab named <code>Student Roster</code>. Your AI will help you set it up.</p>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Parent Name</div><div><b>C</b>Parent Email</div><div><b>D</b>Notes</div><div><b>E</b>Last Contact Date</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="parent-updates"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I'm a teacher and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It sends personalized progress emails to parents from a Google Sheet with one click.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does.
+2. Help me set up my Google Sheet (tab name and column headers) so it matches the script.
+3. Have me add 3 FAKE students and use MY OWN email address for every parent.
+4. Show me how to open Extensions &gt; Apps Script, paste the code, and save it.
+5. Walk me through running it the first time, including the "This app isn't verified" screen.
+6. Help me check that the test emails arrived.
+7. Ask what I want to change (the email wording, the columns, my name) and update the code for me.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="parent-updates"></pre></div></details>
+  <details><summary>Microsoft district?</summary><p>Paste the prompt and code anyway, and add: <em>"Rebuild this as a Power Automate flow using an Excel Online table."</em> The flow is "For each row" &rarr; Condition (Notes is not empty) &rarr; "Send an email (V2)" &rarr; "Update a row" with today's date.</p></details>
+</section>
+
+<!-- ============ BUILD 3 ============ -->
+<section class="tool" id="sunday-briefing">
+  <div class="num">Build 3 &middot; Set it and forget it</div>
+  <h2>The Sunday Night Briefing</h2>
+  <div class="tags">
+    <span class="tag save">Saves: "Wait, we have a meeting? Nobody told me."</span>
+    <span class="tag">Office staff</span><span class="tag">Dept. leads</span><span class="tag">SPED coordinators</span>
+  </div>
+  <p>Every Sunday at 6 PM, your team gets one clean email with the week ahead, grouped by day: IEP meetings, 504s, drills, early release. It's all already on the calendar. This just makes sure people see it. From Chapter 14.</p>
+
+  <h3>You'll need</h3>
+  <ul>
+    <li>One shared Google Calendar for all events (for example, <code>Office Master</code>).</li>
+    <li>A Google Sheet with a tab named <code>Recipients</code> and email addresses in column A. Start with only your own.</li>
+  </ul>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="sunday-briefing"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I work in a school and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." Every Sunday night it emails my team a digest of next week's events from a shared Google Calendar.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does.
+2. Help me find or set up the shared calendar and change CALENDAR_NAME to match it exactly.
+3. Help me create the Google Sheet with a "Recipients" tab, using only MY email for now.
+4. Show me how to open Extensions &gt; Apps Script, paste the code, and save it.
+5. Have me run sendTestToMe first, and help me through the permission screens.
+6. Once the test email looks right, have me run createSundayTrigger ONE time.
+7. Ask what I want to change (send day and time, recipients, layout) and update the code for me.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="sunday-briefing"></pre></div></details>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow is a "Recurrence" trigger (Sunday 6 PM) &rarr; "Get calendar view of events (V3)" for the next 7 days &rarr; "Create HTML table" &rarr; "Send an email (V2)" to your team or a Teams channel.</p></details>
+</section>
+
+<!-- ============ BUILD 4 ============ -->
+<section class="tool" id="tiered-alerts">
+  <div class="num">Build 4 &middot; Let the data trigger the intervention</div>
+  <h2>The Tiered Alert System</h2>
+  <div class="tags">
+    <span class="tag save">Saves: catching students at 5%, not after 30 days</span>
+    <span class="tag">Administrators</span><span class="tag">Counselors</span><span class="tag">Attendance teams</span>
+  </div>
+  <p>You can't check 800 students by hand every week. This sheet does it for you. Students are flagged by tier, the right people are emailed, and every contact is logged, so you have a paper trail showing you stepped in early. It ships in <strong>test mode</strong>, so nothing reaches a family until you switch it on. From Chapter 15.</p>
+
+  <h3>You'll need</h3>
+  <p>A Google Sheet with a tab named <code>Attendance</code>. Paste in your weekly export (fake data first).</p>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Parent Email</div><div><b>C</b>Counselor Email</div><div><b>D</b>Absence Rate (%)</div><div><b>E</b>Last Alert Tier</div><div><b>F</b>Last Alert Date</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="tiered-alerts"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I'm a school administrator and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It checks student absence rates, sends tiered emails to parents and counselors, and logs every contact.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does, including the three tiers and TEST_MODE.
+2. Help me set up the "Attendance" tab with the right headers, and help me make 6 FAKE students with absence rates that hit each tier. Use MY email for every parent and counselor.
+3. Show me how to open Extensions &gt; Apps Script, paste the code, change MY_NAME, and save.
+4. Have me run runTieredAlerts with TEST_MODE = true, and help me through the permission screens.
+5. Help me check the test emails, the summary email, and the "Intervention Log" tab.
+6. Help me rewrite the three messages in MESSAGES so they sound like our school.
+7. Explain what I should confirm with my administrator and our data privacy policy before turning TEST_MODE off and running createWeeklyTrigger.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="tiered-alerts"></pre></div></details>
+  <div class="note"><b>Remember:</b> The script finds the student. A human still makes the call. This tool frees up your time so you can make it.</div>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow connects to your attendance export in Excel Online &rarr; "Apply to each" &rarr; Condition blocks for each tier &rarr; send emails &rarr; "Add a row" to a log table. Bonus: post the Tier 3 list to your admin team's private Teams channel.</p></details>
+</section>
+

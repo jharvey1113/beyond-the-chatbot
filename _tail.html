@@ -1,0 +1,67 @@
+<!-- ============ BONUS ============ -->
+<section class="tool" id="when-it-breaks">
+  <div class="num">Bonus &middot; Chapter 7.5</div>
+  <h2>When It Breaks</h2>
+  <p>It will break, probably more than once. That's not failure. That's part of building. Paste this in when you see a red error:</p>
+  <div class="prompt"><span class="label">Paste into any AI</span><button class="copy" type="button">Copy</button><pre>I'm not a programmer. I ran my Google Apps Script and got this error:
+
+[PASTE THE ERROR MESSAGE HERE]
+
+Here is my full script:
+
+[PASTE YOUR SCRIPT HERE]
+
+And here are my sheet's tab names and column headers:
+
+[LIST THEM HERE]
+
+Explain what went wrong in plain English, then give me the complete corrected script.</pre></div>
+</section>
+
+<!-- ============ RULES ============ -->
+<div class="rules">
+  <h2>The Guardrails (Chapter 8)</h2>
+  <p>If it's not secure, don't build it.</p>
+  <ol>
+    <li><strong>Fake data first.</strong> Test every build with made-up students and your own email.</li>
+    <li><strong>Describe the data. Never paste it.</strong> Tell the AI "Column A has student names." Don't paste the names into the chat.</li>
+    <li><strong>Keep it in your house.</strong> Scripts run inside your district Google or Microsoft account, so the data stays where it already lives.</li>
+    <li><strong>Always build a fail-safe.</strong> "If it's not found, leave it for me." A tool that quietly skips a parent is worse than no tool.</li>
+    <li><strong>Read-only first.</strong> Never let a first run delete or move anything. Report first, act second.</li>
+    <li><strong>Know your policy.</strong> Check your district's data privacy and FERPA rules before going live with real students.</li>
+  </ol>
+</div>
+
+<footer>
+  <div class="book">
+    <div>
+      <strong>Beyond the Chatbot: Stop Talking About AI. Start Building Something.</strong><br>
+      by James Harvey &middot; ISBN 979-8250116329<br>
+      The full build guides, plus chapters for paras, teachers, SPED, counselors, office staff, and administrators.<br>
+      <a class="btn" href="https://www.amazon.com/s?k=9798250116329">Find the book</a>
+    </div>
+  </div>
+  <p style="margin-top:28px">Automate the robot work. Get back to the human work: reaching the student who checked out, and filling that empty seat.</p>
+  <p>Also at DLAC: <strong>The Reality Gap: What Students Really Think About AI</strong> &middot; Tuesday, Oct 20, 3:00 PM</p>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.parentElement.querySelector('pre').innerText;
+    function done(){ btn.textContent='Copied!'; btn.classList.add('done'); setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done');},2000); }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ btn.textContent='Select & copy'; }
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>
