@@ -13,4 +13,6 @@ Each build pairs working Google Apps Script starter code with a coaching prompt.
 
 **Always test with fake data and your own email first.** Check your district's data privacy and FERPA policies before using real student information.
 
+The printable one-pager is [`handout/Beyond-the-Chatbot-One-Pager.pdf`](handout/Beyond-the-Chatbot-One-Pager.pdf). To rebuild it, edit `handout/_onepager.html` and run `bash handout/render.sh`.
+
 To edit the page: change `_head.html`, `_mid.html`, `_tail.html`, or the files in `code/`, then run `python build.py` to regenerate `index.html`.
