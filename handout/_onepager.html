@@ -9,7 +9,7 @@
 *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 html,body{margin:0;background:#fff}
 body{font:10pt/1.4 Inter,Segoe UI,Arial,sans-serif;color:#1c1b19}
-.page{width:8.5in;height:11in;padding:.38in .5in .34in;display:flex;flex-direction:column;gap:.1in;overflow:hidden}
+.page{width:8.5in;height:11in;padding:.36in .5in .4in;display:flex;flex-direction:column;gap:.085in;overflow:hidden}
 .accent{color:#c2410c}
 header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #1c1b19;padding-bottom:.09in}
 .eyebrow{font-size:8.5pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c2410c;margin:0 0 3px}
@@ -18,13 +18,13 @@ h1{font-size:28pt;line-height:1;margin:0;font-weight:800;letter-spacing:-.02em}
 .who{text-align:right;font-size:9pt;color:#5d5a53;line-height:1.4}
 .who b{display:block;font-size:12pt;color:#1c1b19}
 
-.hero{display:grid;grid-template-columns:1fr 2in;gap:.22in;align-items:center;background:#fdeee5;border-radius:14px;padding:.14in .22in}
+.hero{display:grid;grid-template-columns:1fr 2in;gap:.22in;align-items:center;background:#fdeee5;border-radius:14px;padding:.1in .22in}
 .hero h2{font-size:14.5pt;line-height:1.15;margin:0 0 7px;font-weight:800}
 .steps{margin:0;padding:0;list-style:none;display:grid;gap:7px}
 .steps li{display:flex;gap:10px;align-items:flex-start;font-size:10pt}
 .steps span{flex:none;width:22px;height:22px;border-radius:50%;background:#c2410c;color:#fff;font-weight:700;font-size:10pt;display:flex;align-items:center;justify-content:center}
 .qr{background:#fff;border-radius:10px;padding:.08in;text-align:center}
-.qr svg{width:1.75in;height:1.75in;display:block;margin:0 auto}
+.qr svg{width:1.65in;height:1.65in;display:block;margin:0 auto}
 .qr .url{font-size:6.6pt;font-weight:600;margin-top:2px;white-space:nowrap}
 
 h3{font-size:9pt;letter-spacing:.1em;text-transform:uppercase;color:#5d5a53;margin:0 0 6px}
@@ -39,19 +39,27 @@ h3{font-size:9pt;letter-spacing:.1em;text-transform:uppercase;color:#5d5a53;marg
 .pattern{display:flex;gap:4px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
 .pattern li{border:1.5px solid #1c1b19;border-radius:999px;padding:1px 7px;font-size:8.2pt;font-weight:600}
 .pattern li b{color:#c2410c;margin-right:4px}
-.small{font-size:9pt;color:#5d5a53;margin:6px 0 0}
+.small{font-size:9pt;color:#5d5a53;margin:4px 0 0}
 ul.rules{margin:0;padding-left:16px;font-size:9.2pt}
 ul.rules li{margin:1px 0}
 
 .hunt{border:2px dashed #c2410c;border-radius:12px;padding:.07in .16in .1in}
 .hunt p{margin:0 0 4px;font-size:9.5pt}
-.line{border-bottom:1px solid #bdb8ad;height:.22in;display:flex;align-items:flex-end;font-weight:700;color:#c2410c;font-size:9pt}
+.line{border-bottom:1px solid #bdb8ad;height:.2in;display:flex;align-items:flex-end;font-weight:700;color:#c2410c;font-size:9pt}
 
 .heads{background:#1c1b19;color:#f0eee9;border-radius:12px;padding:.08in .16in;font-size:8.8pt;line-height:1.4}
 .heads b{color:#fb8a4c}
 
 footer{margin-top:auto;display:flex;justify-content:space-between;gap:.2in;border-top:1px solid #e3dfd6;padding-top:.09in;font-size:8.6pt;color:#5d5a53}
 footer b{color:#1c1b19}
+.book{margin-top:auto;display:grid;grid-template-columns:.95in 1fr 1.55in;gap:.16in;align-items:center;border:2px solid #1c1b19;border-radius:12px;padding:.08in .14in}
+.bookqr svg{width:.95in;height:.95in;display:block}
+.booktext .n{font-size:8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c2410c}
+.booktext h4{font-size:12.5pt;margin:0 0 2px;font-weight:800}
+.booktext p{margin:0 0 3px;font-size:8.8pt;line-height:1.35;color:#3d3b37}
+.booktext a{font-size:9pt;font-weight:700;color:#c2410c;text-decoration:none}
+.also{border-left:1.5px solid #e3dfd6;padding-left:.13in;font-size:8.3pt;color:#5d5a53;line-height:1.35}
+.also b{display:block;color:#1c1b19;font-size:9.2pt;margin:2px 0}
 </style>
 </head>
 <body>
@@ -84,7 +92,7 @@ footer b{color:#1c1b19}
 <section>
   <h3>The four builds</h3>
   <div class="builds">
-    <div class="b"><div class="n">Build 1 &middot; No code &middot; Anyone</div><h4>The Pocket Expert</h4><p>A portable AI skill loaded with your standards, policies, and accommodation lists. One job, done well, in Gemini, ChatGPT, Copilot, or Claude.</p><span class="save">Saves: answering the same 20 questions</span></div>
+    <div class="b"><div class="n">Build 1 &middot; No code &middot; Anyone</div><h4>The Pocket Expert</h4><p>A portable AI skill loaded with your standards and policies. Ready for the switch from GPTs and Gems to Plugins and Skills, with a prompt to convert yours.</p><span class="save">Saves: answering the same 20 questions</span></div>
     <div class="b"><div class="n">Build 2 &middot; Teachers &middot; SPED</div><h4>One-Click Parent Updates</h4><p>Type a quick note next to each student, click one button, and every parent gets a personal email. Contact dates are logged automatically.</p><span class="save">Saves: about 2 hours per round</span></div>
     <div class="b"><div class="n">Build 3 &middot; Office &middot; Dept. leads</div><h4>The Sunday Night Briefing</h4><p>Every Sunday at 6 PM, your team gets next week's IEPs, 504s, drills, and meetings in one clean email, pulled straight from the shared calendar.</p><span class="save">Saves: "Nobody told me."</span></div>
     <div class="b"><div class="n">Build 4 &middot; Admin &middot; Counselors</div><h4>The Tiered Alert System</h4><p>Attendance data sends the right email to the right people by tier and logs every contact. Starts in test mode, so families get nothing until you're ready.</p><span class="save">Saves: catching kids at 5%, not 30 days</span></div>
@@ -113,12 +121,16 @@ footer b{color:#1c1b19}
   <div class="line">1.</div><div class="line">2.</div><div class="line">3.</div>
 </section>
 
-<section class="heads"><b>Platform heads-up:</b> ChatGPT Custom GPTs are being replaced by Plugins (GPTs stop working Dec 11, 2026), and Gemini Gems are becoming Skills. Build 1 shows you how to make a portable skill that moves with you, plus a prompt to convert the GPTs and Gems you already have.</section>
-
-<footer>
-  <div><b>Beyond the Chatbot: Stop Talking About AI. Start Building Something.</b> by James Harvey &middot; <span style="white-space:nowrap">ISBN 979-8250116329</span></div>
-  <div style="text-align:right;flex:none">Also at DLAC: <b>The Reality Gap</b><br>Tue, Oct 20 &middot; 3:00 PM</div>
-</footer>
+<section class="book">
+  <div class="bookqr">{{BOOKQR}}</div>
+  <div class="booktext">
+    <div class="n">Want more builds?</div>
+    <h4>Get the book: <em>Beyond the Chatbot</em></h4>
+    <p>Step-by-step builds for paras, teachers, SPED, counselors, office staff, and administrators, plus the debugging, guardrails, and long-game chapters that keep your tools running.</p>
+    <a href="https://www.amazon.com/dp/B0GQMYJ2XZ">Scan or click: amazon.com/dp/B0GQMYJ2XZ</a>
+  </div>
+  <div class="also">Also at DLAC<b>The Reality Gap:<br>What Students Really<br>Think About AI</b>Tue, Oct 20 &middot; 3:00 PM</div>
+</section>
 
 </div>
 </body>
