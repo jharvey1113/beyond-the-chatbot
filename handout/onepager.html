@@ -46,7 +46,10 @@ ul.rules{margin:0;padding-left:16px;font-size:9.2pt}
 ul.rules li{margin:1px 0}
 
 .hunt{border:2px dashed #c2410c;border-radius:12px;padding:.07in .16in .1in}
-.hunt p{margin:0 0 4px;font-size:9.5pt}
+.hunt p{margin:0 0 5px;font-size:9.5pt}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:4px .2in;font-size:9.3pt}
+.signs div{padding-left:14px;position:relative}
+.signs div::before{content:"";position:absolute;left:0;top:.45em;width:7px;height:7px;border-radius:50%;background:#c2410c}
 .line{border-bottom:1px solid #bdb8ad;height:.2in;display:flex;align-items:flex-end;font-weight:700;color:#c2410c;font-size:9pt}
 
 .heads{background:#1c1b19;color:#f0eee9;border-radius:12px;padding:.08in .16in;font-size:8.8pt;line-height:1.4}
@@ -73,12 +76,12 @@ footer b{color:#1c1b19}
     <h1>Beyond the Chatbot</h1>
     <p class="tagline">Stop talking about AI. Start building something.</p>
   </div>
-  <div class="who"><b>James Harvey</b>Special Education Teacher &middot; AI Ambassador<br>Agua Fria Union High School District<div class="contact"><a href="mailto:jamesharvey1113@gmail.com">jamesharvey1113@gmail.com</a><br><a href="https://www.linkedin.com/in/jamesharvey1113/">linkedin.com/in/jamesharvey1113</a></div></div>
+  <div class="who"><b>James Harvey</b>Special Education Teacher &middot; AI Ambassador<br>Agua Fria Union High School District<div class="contact"><a href="mailto:jharvey@aguafria.org">jharvey@aguafria.org</a><br><a href="https://www.linkedin.com/in/jamesharvey1113/">linkedin.com/in/jamesharvey1113</a></div></div>
 </header>
 
 <section class="hero">
   <div>
-    <h2>Four tools you can build this week. No coding degree. No new subscription.</h2>
+    <h2>Five tools you can build this week. No coding degree. No new subscription.</h2>
     <ol class="steps">
       <li><span>1</span><div><b>Scan</b> the code and pick a build.</div></li>
       <li><span>2</span><div>Tap <b>Copy prompt + code</b>.</div></li>
@@ -92,7 +95,7 @@ footer b{color:#1c1b19}
 </section>
 
 <section>
-  <h3>The four builds</h3>
+  <h3>Featured builds &middot; <span style="text-transform:none;letter-spacing:0;font-weight:600">plus Build 5, the Email Traffic Cop, online</span></h3>
   <div class="builds">
     <div class="b"><div class="n">Build 1 &middot; No code &middot; Anyone</div><h4>The Pocket Expert</h4><p>A portable AI skill loaded with your standards and policies. Ready for the switch from GPTs and Gems to Plugins and Skills, with a prompt to convert yours.</p><span class="save">Saves: answering the same 20 questions</span></div>
     <div class="b"><div class="n">Build 2 &middot; Teachers &middot; SPED</div><h4>One-Click Parent Updates</h4><p>Type a quick note next to each student, click one button, and every parent gets a personal email. Contact dates are logged automatically.</p><span class="save">Saves: about 2 hours per round</span></div>
@@ -119,8 +122,13 @@ footer b{color:#1c1b19}
 </section>
 
 <section class="hunt">
-  <p><b class="accent">Your waste hunt.</b> What three tasks did you repeat by hand last week? Circle the one that fits the pattern. That's your first build.</p>
-  <div class="line">1.</div><div class="line">2.</div><div class="line">3.</div>
+  <p><b class="accent">Finding your first build.</b> A task is ready to automate when it shows one of these signs:</p>
+  <div class="signs">
+    <div><b>You do it every week,</b> the same way, by hand.</div>
+    <div><b>You copy and paste</b> between tabs, sheets, or systems.</div>
+    <div><b>You send the same email</b> to a lot of people, one at a time.</div>
+    <div><b>You scan a list</b> looking for who crossed a line.</div>
+  </div>
 </section>
 
 <section class="book">
