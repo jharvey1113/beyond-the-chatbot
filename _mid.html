@@ -107,3 +107,42 @@ Here is the code:
   <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow connects to your attendance export in Excel Online &rarr; "Apply to each" &rarr; Condition blocks for each tier &rarr; send emails &rarr; "Add a row" to a log table. Bonus: post the Tier 3 list to your admin team's private Teams channel.</p></details>
 </section>
 
+<!-- ============ BUILD 5 ============ -->
+<section class="tool" id="traffic-cop">
+  <div class="num">Build 5 &middot; Let the roster do the routing</div>
+  <h2>The Email Traffic Cop</h2>
+  <div class="tags">
+    <span class="tag save">Saves: emails sitting in the office inbox waiting to be forwarded</span>
+    <span class="tag">Office staff</span><span class="tag">Online programs</span><span class="tag">Counselors</span>
+  </div>
+  <p>A student or parent emails your office. The script looks up their address on your roster, forwards the email to that student's teacher, and files it away. Families get an answer from the right person faster. Anyone not on the roster stays in your inbox for a human, so nothing falls through. From Chapter 14. A version of this tool routes my program's email every day.</p>
+
+  <h3>You'll need</h3>
+  <ul>
+    <li>A Gmail label named <code>To Process</code>, with a filter that applies it to incoming office mail.</li>
+    <li>A Google Sheet with a tab named <code>Roster</code> (fake data first):</li>
+  </ul>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Student Email</div><div><b>C</b>Parent Email(s)</div><div><b>D</b>Teacher Email</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="traffic-cop"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I work in a school office and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It reads emails labeled "To Process," looks up the sender on a roster sheet, forwards the email to that student's teacher, and files it away. Unknown senders stay in the inbox for a person.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does, including TEST_MODE and the "Needs Review" fail-safe.
+2. Help me create the "To Process" label and a Gmail filter that applies it to incoming mail for our office address.
+3. Help me set up the "Roster" tab with 3 FAKE students. Use MY email or a test address I control for the students, parents, and teachers.
+4. Show me how to open Extensions &gt; Apps Script from the sheet, paste the code, and save it.
+5. Have me send a test email from a roster address and from an address NOT on the roster, then run routeEmails with TEST_MODE = true. Help me through the permission screens.
+6. Help me check the forwarded test email, the "Needs Review" label, and the "Routing Log" tab.
+7. Explain what I should confirm with my administrator and our data privacy policy before connecting our real roster, turning TEST_MODE off, and running createTrigger.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="traffic-cop"></pre></div></details>
+  <div class="note"><b>The fail-safe matters most:</b> "If the sender isn't found, leave it for me." A parent writing from a new address should never be quietly archived.</div>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow is "When a new email arrives (V3)" &rarr; "Get a row" from an Excel Online roster by sender address &rarr; Condition (found) &rarr; "Forward an email (V2)" to the teacher and move the email to a folder. If the sender isn't found, flag it and leave it in the inbox.</p></details>
+</section>

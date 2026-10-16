@@ -10,6 +10,7 @@ Each build pairs working Google Apps Script starter code with a coaching prompt.
 | One-Click Parent Updates | Teachers, SPED | [`code/parent-updates.gs`](code/parent-updates.gs) |
 | The Sunday Night Briefing | Office staff, dept. leads | [`code/sunday-briefing.gs`](code/sunday-briefing.gs) |
 | The Tiered Alert System | Administrators, counselors | [`code/tiered-alerts.gs`](code/tiered-alerts.gs) |
+| The Email Traffic Cop | Office staff, online programs | [`code/traffic-cop.gs`](code/traffic-cop.gs) |
 
 **Always test with fake data and your own email first.** Check your district's data privacy and FERPA policies before using real student information.
 

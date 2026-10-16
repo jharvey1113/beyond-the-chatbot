@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Beyond the Chatbot: Starter Builds</title>
-<meta name="description" content="Four starter builds from the book Beyond the Chatbot by James Harvey: a portable AI skill plus three Google Apps Script tools, each with a prompt that walks you through building it.">
+<meta name="description" content="Five starter builds from the book Beyond the Chatbot by James Harvey: a portable AI skill plus four Google Apps Script tools, each with a prompt that walks you through building it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -96,7 +96,7 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.92em;backgro
 <header>
   <p class="eyebrow">DLAC 2026 &middot; Book Study &middot; Atlanta</p>
   <h1>Beyond the Chatbot</h1>
-  <p class="sub">Stop talking about AI. Start building something. Here are four starter builds you can make this week.</p>
+  <p class="sub">Stop talking about AI. Start building something. Here are five starter builds you can make this week.</p>
   <p class="byline"><strong>James Harvey</strong> &middot; Special Education Teacher, AI Ambassador &amp; Distance Learning &middot; Agua Fria Union High School District</p>
 </header>
 
@@ -116,6 +116,7 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.92em;backgro
     <a href="#parent-updates"><b>Build 2 &middot; Teachers</b><span>One-Click Parent Updates</span></a>
     <a href="#sunday-briefing"><b>Build 3 &middot; Office &amp; Leads</b><span>Sunday Night Briefing</span></a>
     <a href="#tiered-alerts"><b>Build 4 &middot; Admin</b><span>Tiered Alert System</span></a>
+    <a href="#traffic-cop"><b>Build 5 &middot; Office</b><span>Email Traffic Cop</span></a>
   </nav>
 </div>
 
@@ -291,6 +292,45 @@ Here is the code:
   <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow connects to your attendance export in Excel Online &rarr; "Apply to each" &rarr; Condition blocks for each tier &rarr; send emails &rarr; "Add a row" to a log table. Bonus: post the Tier 3 list to your admin team's private Teams channel.</p></details>
 </section>
 
+<!-- ============ BUILD 5 ============ -->
+<section class="tool" id="traffic-cop">
+  <div class="num">Build 5 &middot; Let the roster do the routing</div>
+  <h2>The Email Traffic Cop</h2>
+  <div class="tags">
+    <span class="tag save">Saves: emails sitting in the office inbox waiting to be forwarded</span>
+    <span class="tag">Office staff</span><span class="tag">Online programs</span><span class="tag">Counselors</span>
+  </div>
+  <p>A student or parent emails your office. The script looks up their address on your roster, forwards the email to that student's teacher, and files it away. Families get an answer from the right person faster. Anyone not on the roster stays in your inbox for a human, so nothing falls through. From Chapter 14. A version of this tool routes my program's email every day.</p>
+
+  <h3>You'll need</h3>
+  <ul>
+    <li>A Gmail label named <code>To Process</code>, with a filter that applies it to incoming office mail.</li>
+    <li>A Google Sheet with a tab named <code>Roster</code> (fake data first):</li>
+  </ul>
+  <div class="cols">
+    <div><b>A</b>Student Name</div><div><b>B</b>Student Email</div><div><b>C</b>Parent Email(s)</div><div><b>D</b>Teacher Email</div>
+  </div>
+
+  <h3>Copy, paste, build</h3>
+  <div class="prompt" data-code="traffic-cop"><span class="label">Prompt + code</span><button class="copy" type="button">Copy prompt + code</button><pre>I work in a school office and I'm not a programmer. Below is a Google Apps Script from the book "Beyond the Chatbot." It reads emails labeled "To Process," looks up the sender on a roster sheet, forwards the email to that student's teacher, and files it away. Unknown senders stay in the inbox for a person.
+
+Walk me through building it ONE step at a time. Wait for me to say "done" before moving to the next step.
+1. Explain in plain English what this script does, including TEST_MODE and the "Needs Review" fail-safe.
+2. Help me create the "To Process" label and a Gmail filter that applies it to incoming mail for our office address.
+3. Help me set up the "Roster" tab with 3 FAKE students. Use MY email or a test address I control for the students, parents, and teachers.
+4. Show me how to open Extensions &gt; Apps Script from the sheet, paste the code, and save it.
+5. Have me send a test email from a roster address and from an address NOT on the roster, then run routeEmails with TEST_MODE = true. Help me through the permission screens.
+6. Help me check the forwarded test email, the "Needs Review" label, and the "Routing Log" tab.
+7. Explain what I should confirm with my administrator and our data privacy policy before connecting our real roster, turning TEST_MODE off, and running createTrigger.
+
+If I hit an error, I'll paste it here and you'll help me fix it.
+
+Here is the code:
+<span class="codeslot">[the code is attached when you copy]</span></pre></div>
+  <details><summary>See the code</summary><div class="prompt"><span class="label">Google Apps Script</span><button class="copy" type="button">Copy code</button><pre class="codeview" data-code="traffic-cop"></pre></div></details>
+  <div class="note"><b>The fail-safe matters most:</b> "If the sender isn't found, leave it for me." A parent writing from a new address should never be quietly archived.</div>
+  <details><summary>Microsoft district?</summary><p>Add to the prompt: <em>"Rebuild this as a Power Automate flow."</em> The flow is "When a new email arrives (V3)" &rarr; "Get a row" from an Excel Online roster by sender address &rarr; Condition (found) &rarr; "Forward an email (V2)" to the teacher and move the email to a folder. If the sender isn't found, flag it and leave it in the inbox.</p></details>
+</section>
 <!-- ============ BONUS ============ -->
 <section class="tool" id="when-it-breaks">
   <div class="num">Bonus &middot; Chapter 7.5</div>
@@ -671,6 +711,145 @@ function createLog_(ss) {
   log.appendRow(['Date', 'Student', 'Tier', 'Absence Rate', 'Sent To', 'Status']);
   log.setFrozenRows(1);
   return log;
+}
+
+function isEmail_(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+</script>
+<script type="text/plain" id="code-traffic-cop">
+/**
+ * THE EMAIL TRAFFIC COP
+ * From "Beyond the Chatbot" by James Harvey (Chapter 14)
+ *
+ * Routes student and parent emails to the right teacher automatically,
+ * so nothing sits in the office inbox waiting for someone to forward it.
+ *
+ * Setup:
+ *   1. In Gmail, create a label named "To Process" and a filter that applies it
+ *      to incoming mail sent to your office address.
+ *   2. In a Google Sheet, make a tab named "Roster" with headers in row 1:
+ *        A: Student Name | B: Student Email | C: Parent Email(s) | D: Teacher Email
+ *      Column C can hold more than one address, separated by commas.
+ *
+ * What happens to each email:
+ *   - Sender is on the roster   -> forwarded to that student's teacher, labeled "Routed", archived
+ *   - Sender is NOT on the roster, or matches students with different teachers
+ *                               -> labeled "Needs Review" and left in the inbox for a person
+ *   Nothing is ever deleted. Every decision is written to a "Routing Log" tab.
+ *
+ * KEEP TEST_MODE = true until you have checked the Routing Log.
+ */
+
+const TEST_MODE = true;              // true = every forward goes only to you, marked [TEST]
+const ROSTER_TAB = 'Roster';
+const LOG_TAB = 'Routing Log';
+const INCOMING_LABEL = 'To Process';
+const ROUTED_LABEL = 'Routed';
+const REVIEW_LABEL = 'Needs Review';
+
+// Adds a "Traffic Cop" menu to the sheet
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Traffic Cop')
+    .addItem('Route emails now', 'routeEmails')
+    .addToUi();
+}
+
+// Run this ONE time (after testing) to check for new email every 10 minutes
+function createTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'routeEmails') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('routeEmails').timeBased().everyMinutes(10).create();
+}
+
+function routeEmails() {
+  const me = Session.getEffectiveUser().getEmail().toLowerCase();
+  const incoming = GmailApp.getUserLabelByName(INCOMING_LABEL);
+  if (!incoming) throw new Error('Create a Gmail label named "' + INCOMING_LABEL + '" first.');
+  const routed = getOrCreateLabel_(ROUTED_LABEL);
+  const review = getOrCreateLabel_(REVIEW_LABEL);
+
+  // 1. GET DATA: the live roster, turned into an email -> student lookup
+  const lookup = buildLookup_();
+  const log = getLog_();
+
+  // 2. LOOP through every waiting email thread
+  incoming.getThreads(0, 50).forEach(function (thread) {
+    // Find the newest message in the thread that someone else sent
+    const messages = thread.getMessages();
+    let msg = null;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (senderEmail_(messages[i].getFrom()) !== me) { msg = messages[i]; break; }
+    }
+    if (!msg) { thread.removeLabel(incoming); return; }
+
+    const from = senderEmail_(msg.getFrom());
+    const matches = lookup[from] || [];
+    const teachers = unique_(matches.map(function (m) { return m.teacher; }).filter(isEmail_));
+
+    // 3. CHECK: exactly one teacher? Route it. Anything else? A person decides.
+    if (teachers.length === 1) {
+      const students = unique_(matches.map(function (m) { return m.student; })).join(', ');
+      // 4. DO SOMETHING: forward, label, file away, log
+      msg.forward(TEST_MODE ? me : teachers[0], {
+        subject: (TEST_MODE ? '[TEST] ' : '') + '[' + students + '] ' + msg.getSubject()
+      });
+      thread.addLabel(routed);
+      thread.removeLabel(incoming);
+      if (!TEST_MODE) thread.moveToArchive();
+      log.appendRow([new Date(), from, students, teachers[0], msg.getSubject(), TEST_MODE ? 'TEST (sent to me)' : 'ROUTED']);
+    } else {
+      // Fail-safe: unknown sender (or students with different teachers) stays in the inbox
+      thread.addLabel(review);
+      thread.removeLabel(incoming);
+      const why = teachers.length === 0 ? 'NEEDS REVIEW (not on roster)' : 'NEEDS REVIEW (more than one teacher)';
+      log.appendRow([new Date(), from, '', teachers.join(', '), msg.getSubject(), why]);
+    }
+  });
+}
+
+// Builds { "email@address": [ {student, teacher}, ... ] } from the Roster tab
+function buildLookup_() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ROSTER_TAB);
+  if (!sheet) throw new Error('Could not find a tab named "' + ROSTER_TAB + '".');
+  const lookup = {};
+  sheet.getDataRange().getValues().slice(1).forEach(function (r) {
+    const entry = { student: String(r[0]).trim(), teacher: String(r[3]).trim().toLowerCase() };
+    if (!entry.student) return;
+    [String(r[1])].concat(String(r[2]).split(/[,;\s]+/)).forEach(function (e) {
+      e = e.trim().toLowerCase();
+      if (!isEmail_(e)) return;
+      (lookup[e] = lookup[e] || []).push(entry);
+    });
+  });
+  return lookup;
+}
+
+// Pulls the address out of "Name <email@address>"
+function senderEmail_(from) {
+  const m = String(from).match(/<([^>]+)>/);
+  return (m ? m[1] : String(from)).trim().toLowerCase();
+}
+
+function getOrCreateLabel_(name) {
+  return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
+}
+
+function getLog_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let log = ss.getSheetByName(LOG_TAB);
+  if (!log) {
+    log = ss.insertSheet(LOG_TAB);
+    log.appendRow(['Date', 'From', 'Student', 'Teacher', 'Subject', 'Result']);
+    log.setFrozenRows(1);
+  }
+  return log;
+}
+
+function unique_(list) {
+  return list.filter(function (v, i) { return v && list.indexOf(v) === i; });
 }
 
 function isEmail_(e) {
